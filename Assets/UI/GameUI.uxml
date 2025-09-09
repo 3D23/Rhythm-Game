@@ -1,0 +1,7 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="PlayerEnergy" src="project://database/Assets/UI/PlayerEnergy.uxml?fileID=9197481963319205126&amp;guid=a746ccf1d5a6ecb4badc3f655e685bb7&amp;type=3#PlayerEnergy" />
+    <ui:VisualElement style="width: 700px; height: 100px; position: absolute; top: 15px; left: 23px; flex-direction: row; text-overflow: ellipsis; flex-wrap: nowrap; justify-content: flex-start; align-items: center;">
+        <ui:Instance template="PlayerEnergy" name="PlayerEnergy" style="width: 400px; height: 50px;" />
+        <ui:Label text="Энергия" name="EnergyTitle" style="-unity-text-align: middle-center; font-size: 36px; -unity-font-style: bold; margin-left: 30px; color: rgb(221, 221, 221);" />
+    </ui:VisualElement>
+</ui:UXML>
