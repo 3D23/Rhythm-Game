@@ -12,50 +12,40 @@ public enum SpeedMode
 [RequireComponent(typeof(RhythmMovement))]
 public class SpeedModeController : MonoBehaviour
 {
-    [SerializeField] private ZoneController zoneController;
-    [SerializeField] private SpeedZoneConfig speedZoneConfig;
+    public Action<SpeedModeBpmConfig.SpeedModeBpmRule> OnChangeSpeedMode;
+    [SerializeField] private RhythmController rhythmController;
+    [SerializeField] private SpeedModeBpmConfig speedModeBpmConfig;
+    [SerializeField] private SpeedModeAccelerationConfig speedModeAccelerationConfig;
     private PlayerInputHandler playerInputHandler;
-    private RhythmMovement movement;
+    private float acceleration; 
+    private float maxSpeed;
+    private RhythmMovement rhythmMovement;
 
-    public SpeedMode CurrentMode { get; private set; }
+    public SpeedMode CurrentMode { get; private set; } = SpeedMode.First;
 
     private void Start()
     {
+        rhythmMovement = GetComponent<RhythmMovement>();
+        acceleration = speedModeAccelerationConfig.GetAcceleration(CurrentMode);
+        maxSpeed = speedModeAccelerationConfig.GetMaxSpeed(CurrentMode);
         playerInputHandler = GetComponent<PlayerInputHandler>();
-        movement = GetComponent<RhythmMovement>();
         if (playerInputHandler != null)
         {
             playerInputHandler.OnPositiveSpeedModeAction += PositiveSpeedModeActionHandler;
             playerInputHandler.OnNegativeSpeedModeAction += NegativeSpeedModeActionHandler;
         }
+        if (rhythmMovement != null)
+            rhythmMovement.OnRhythmAccelerationChange += ChangeAcceleration;
     }
 
     private void OnDestroy()
     {
+        if (rhythmMovement != null)
+            rhythmMovement.OnRhythmAccelerationChange -= ChangeAcceleration;
         if (playerInputHandler != null)
         {
             playerInputHandler.OnPositiveSpeedModeAction -= PositiveSpeedModeActionHandler;
             playerInputHandler.OnNegativeSpeedModeAction -= NegativeSpeedModeActionHandler;
-        }
-    }
-
-    private void Update()
-    {
-        if (movement != null) 
-        {
-            if (!speedZoneConfig.IsSpeedAllowedInZone(zoneController.CurrentZone, CurrentMode))
-            {
-                if (movement.enabled)
-                {
-                    movement.Stop();
-                    movement.enabled = false;
-                }
-            }
-            else
-            {
-                if (!movement.enabled)
-                    movement.enabled = true;
-            }
         }
     }
 
@@ -79,17 +69,21 @@ public class SpeedModeController : MonoBehaviour
             newMode = (SpeedMode)newModeInt;
         }
 
-        if (!speedZoneConfig.IsSpeedAllowedInZone(zoneController.CurrentZone, newMode))
-            return false;
-
-        if (newMode != CurrentMode)
-        {
-            CurrentMode = newMode;
-            return true;
-        }
         CurrentMode = newMode;
-        return false;
+        acceleration = speedModeAccelerationConfig.GetAcceleration(CurrentMode);
+        maxSpeed = speedModeAccelerationConfig.GetMaxSpeed(CurrentMode);
+        rhythmMovement.SetMaxSpeed(maxSpeed);
+        var r = speedModeBpmConfig.GetRule(CurrentMode);
+        if (r != null)
+        {
+            rhythmController.SetBpm(r.MetronomeBpm);
+            OnChangeSpeedMode?.Invoke(r);
+        }
+        return true;
     }
+
+    private void ChangeAcceleration() =>
+        rhythmMovement.SetAcceleration(new Vector2(acceleration, 1));
 
     private void NegativeSpeedModeActionHandler() =>
         TryToogleMode(isIncrease: false);

@@ -137,4 +137,7 @@ public class RhythmController : MonoBehaviour
             OnRhythmTick?.Invoke(rhythmGrade);
         }
     }
+
+    public void SetBpm(ushort bpm) =>
+        metronome.SetBpm(bpm);
 }

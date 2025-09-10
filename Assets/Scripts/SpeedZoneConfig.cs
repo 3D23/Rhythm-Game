@@ -1,27 +1,27 @@
 using System;
+using System.Linq;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Game/Speed Zone Config")]
-public class SpeedZoneConfig : ScriptableObject
+[CreateAssetMenu(menuName = "Game/Speed Mode Bpm Config")]
+public class SpeedModeBpmConfig : ScriptableObject
 {
     [Serializable]
-    public class ZoneSpeedRule
+    public class SpeedModeBpmRule
     {
-        public Zone Zone;
-        public SpeedMode[] AllowedSpeedModes;
+        public SpeedMode Mode;
+        public ushort MetronomeBpm;
     }
 
-    public ZoneSpeedRule[] Rules;
+    public SpeedModeBpmRule[] Rules;
 
-    public bool IsSpeedAllowedInZone(Zone zone, SpeedMode mode)
+    public ushort GetBpmByMode(SpeedMode mode)
     {
-        foreach (var rule in Rules)
-        {
-            if (rule.Zone == zone)
-            {
-                return Array.Exists(rule.AllowedSpeedModes, s => s == mode);
-            }
-        }
-        return false;
+        var rule = Rules.Where((r) => r.Mode == mode).FirstOrDefault();
+        if (rule == null)
+            return 0;
+        return rule.MetronomeBpm;
     }
+
+    public SpeedModeBpmRule GetRule(SpeedMode mode) =>
+        Rules.Where((r) => r.Mode == mode).FirstOrDefault();
 }

@@ -20,16 +20,6 @@ public class ZoneLine : MonoBehaviour
     {
         if (!collision.TryGetComponent<RhythmMovement>(out _))
             return;
-        if (zone == Zone.Finish)
-        {
-            if (!collision.TryGetComponent<PlayerInputHandler>(out _))
-                Debug.Log("You Lose");
-            else
-                Debug.Log("You Win");
-        }
-        else
-        {
-            OnSwitchZone?.Invoke(zone);
-        }
+        OnSwitchZone?.Invoke(zone);
     }
 }

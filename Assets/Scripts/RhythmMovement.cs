@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class RhythmMovement : MonoBehaviour
 {
+    public Action OnRhythmAccelerationChange;
     public readonly float MaxEnergy = 100;
     public readonly float EnergyThreshold = 20;
     public float Energy
@@ -17,7 +18,7 @@ public class RhythmMovement : MonoBehaviour
     public Vector2 Speed
     {
         get => speed;
-        private set => speed = new Vector2(Mathf.Clamp(value.x, 0, maxSpeed), value.y);
+        private set => speed = new Vector2(Mathf.Clamp(value.x, 0, MaxSpeed), value.y);
     }
 
     public Vector2 Acceleration
@@ -30,9 +31,9 @@ public class RhythmMovement : MonoBehaviour
     private Vector2 acceleration;
     private float energy = 100;
 
-    private float maxSpeed = 1.1f;
-    private readonly float maxSpeedBeforeSprint = 1.1f;
-    private readonly float maxSpeedAfterSprint = 1.1f * 2;
+    public float MaxSpeed { get; private set; } = 1.1f;
+    private float maxSpeedBeforeSprint = 1.1f;
+    private float maxSpeedAfterSprint = 1.1f * 2;
     private readonly float maxAcel = 20f;
     private readonly float friction = 0.98f;
 
@@ -83,6 +84,7 @@ public class RhythmMovement : MonoBehaviour
             else if (gradation == RhythmGradation.VERY_BAD)
                 Acceleration /= new Vector2(4, 1);
         }
+        OnRhythmAccelerationChange?.Invoke();
     }
 
     public void SetAcceleration(Vector2 coeffVector)
@@ -115,6 +117,7 @@ public class RhythmMovement : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log(speed);
         if (isSlowdown)
             SetAcceleration(new Vector2(0.3f, 1));
 
@@ -124,12 +127,10 @@ public class RhythmMovement : MonoBehaviour
         if (!isSprinted)
         {
             Energy += Time.deltaTime * 4;
-            SetMaxSpeed(maxSpeedBeforeSprint);
         }
 
         if (isSprinted)
         {
-            SetMaxSpeed(maxSpeedAfterSprint);
             SetAcceleration(new Vector2(1.05f, 1));
             Energy -= Time.deltaTime * 40;
         }
@@ -155,8 +156,10 @@ public class RhythmMovement : MonoBehaviour
     }
     #endregion
 
-    public void SetMaxSpeed(float value) => 
-        maxSpeed = value;
+    public void SetMaxSpeed(float value)
+    {
+        MaxSpeed = value;
+    }
 
     private void CalculateBounds()
     {
@@ -174,7 +177,7 @@ public class RhythmMovement : MonoBehaviour
     private void Move()
     {
         Speed += Time.deltaTime * acceleration;
-        Speed = new Vector2(Mathf.Clamp(speed.x, -maxSpeed, maxSpeed), Mathf.Clamp(speed.y, -maxSpeed, maxSpeed));
+        Speed = new Vector2(Mathf.Clamp(speed.x, -MaxSpeed, MaxSpeed), Mathf.Clamp(speed.y, -MaxSpeed, MaxSpeed));
         Speed *= friction;
         transform.Translate(Time.deltaTime * speed);
     }

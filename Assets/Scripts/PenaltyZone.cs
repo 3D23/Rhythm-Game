@@ -26,6 +26,7 @@ public class PenaltyZone : MonoBehaviour
     {
         if (collision.TryGetComponent(out RhythmMovement movement))
         {
+            movement.Stop();
             if (!movementsObjects.Exists((m) => m == movement))
                 movementsObjects.Add(movement);
         }

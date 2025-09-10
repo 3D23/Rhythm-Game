@@ -1,10 +1,11 @@
+using System;
 using UnityEngine;
 
 public class ZoneController : MonoBehaviour
 {
+    public Action OnFinishGame;
     public Zone CurrentZone {  get; private set; }
     [SerializeField] private ZoneLine[] zonesLine;
-    [SerializeField] private Metronome metronome;
 
     private void Start()
     {
@@ -21,7 +22,8 @@ public class ZoneController : MonoBehaviour
     private void SwitchZone(Zone zone)
     {
         CurrentZone = zone;
-        if (metronome != null)
-            metronome.SetBpm((ushort)Random.Range(30, 290));
+        Debug.Log(CurrentZone);
+        if (CurrentZone == Zone.Finish)
+            OnFinishGame?.Invoke();
     }
 }
