@@ -32,8 +32,6 @@ public class RhythmMovement : MonoBehaviour
     private float energy = 100;
 
     public float MaxSpeed { get; private set; } = 1.1f;
-    private float maxSpeedBeforeSprint = 1.1f;
-    private float maxSpeedAfterSprint = 1.1f * 2;
     private readonly float maxAcel = 20f;
     private readonly float friction = 0.98f;
 
