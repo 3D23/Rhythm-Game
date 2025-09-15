@@ -44,6 +44,6 @@ public class BinaryDataRepository : IGameDataRepository<PlayerData, PlayerData.P
 
     public PlayerData Get() => _data;
 
-    public void SetData(PlayerData.PlayerDataFields key, object value) =>
+    public void Set(PlayerData.PlayerDataFields key, object value) =>
         _data.Set(key, value);
 }

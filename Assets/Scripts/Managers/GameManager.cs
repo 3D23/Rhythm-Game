@@ -1,8 +1,11 @@
+using VContainer;
+
 public abstract class GameManager<T>
 {
     protected readonly ISaver Saver;
     protected readonly IGameDataRepository<PlayerData, PlayerData.PlayerDataFields> GameDataRepository;
 
+    [Inject]
     public GameManager(IGameDataRepository<PlayerData, PlayerData.PlayerDataFields> repository, ISaver saver)
     {
         Saver = saver;
