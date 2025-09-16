@@ -63,14 +63,13 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Managers\Money.cs" />
     <Compile Include="Assets\Scripts\PlayerData.cs" />
-    <Compile Include="Assets\Scripts\Managers\MoneySaver.cs" />
+    <Compile Include="Assets\Scripts\GameBootstrapper.cs" />
     <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
     <Compile Include="Assets\Scripts\SpeedZoneConfig.cs" />
     <Compile Include="Assets\Scripts\Managers\MoneyManager.cs" />
     <Compile Include="Assets\Scripts\PenaltyZone.cs" />
     <Compile Include="Assets\Scripts\Managers\BinaryDataRepository.cs" />
     <Compile Include="Assets\Scripts\PlayerInputHandler.cs" />
-    <Compile Include="Assets\Scripts\Bootstrapper.cs" />
     <Compile Include="Assets\Scripts\Metronome.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\ZoneLine.cs" />
@@ -81,6 +80,7 @@
     <Compile Include="Assets\Scripts\Managers\ISaver.cs" />
     <Compile Include="Assets\Scripts\RhythmMovement.cs" />
     <Compile Include="Assets\Scripts\GameLifetimeScope.cs" />
+    <Compile Include="Assets\Scripts\Managers\MoneySetter.cs" />
     <Compile Include="Assets\Scripts\ZoneController.cs" />
     <Compile Include="Assets\Scripts\UI\GameUI.cs" />
     <Compile Include="Assets\Scripts\PlayerDataLoader.cs" />

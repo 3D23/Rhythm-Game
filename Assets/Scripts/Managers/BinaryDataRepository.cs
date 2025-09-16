@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class BinaryDataRepository : IGameDataRepository<PlayerData, PlayerData.PlayerDataFields>
@@ -8,15 +9,16 @@ public class BinaryDataRepository : IGameDataRepository<PlayerData, PlayerData.P
     private PlayerData _data;
     private const string BINARY_SAVE_FILE = "playerData.sav";
 
-    public BinaryDataRepository()
-    {
-    }
+    public BinaryDataRepository() { }
 
-    public void Load()
+    public Task Load()
     {
         string file = Path.Combine(Application.persistentDataPath, BINARY_SAVE_FILE);
         if (!File.Exists(file))
+        {
             _data = new PlayerData();
+            return Task.CompletedTask;
+        }
         BinaryFormatter binaryFormatter = new();
         byte[] dataBytes = File.ReadAllBytes(file);
         using MemoryStream ms = new(dataBytes);
@@ -26,12 +28,13 @@ public class BinaryDataRepository : IGameDataRepository<PlayerData, PlayerData.P
         }
         catch (Exception ex)
         {
-            Debug.LogError($"Error deserializing data: {ex.Message}");
+            Debug.LogError($"Ошибка дессериализации даных: {ex.Message}");
             _data = new PlayerData();
         }
+        return Task.CompletedTask;
     }
 
-    public void Save(PlayerData.PlayerDataFields key, object value)
+    public Task Save()
     {
         string file = Path.Combine(Application.persistentDataPath, BINARY_SAVE_FILE);
         BinaryFormatter binaryFormatter = new();
@@ -40,6 +43,7 @@ public class BinaryDataRepository : IGameDataRepository<PlayerData, PlayerData.P
         byte[] dataBytes = ms.ToArray();
         File.WriteAllBytes(file, dataBytes);
         Debug.Log($"Данные сохранены в {file}");
+        return Task.CompletedTask;
     }
 
     public PlayerData Get() => _data;

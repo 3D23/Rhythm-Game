@@ -2,20 +2,17 @@ using VContainer;
 
 public abstract class GameManager<T>
 {
-    protected readonly ISaver Saver;
+    protected readonly ISetter<PlayerData.PlayerDataFields, T> Setter;
     protected readonly IGameDataRepository<PlayerData, PlayerData.PlayerDataFields> GameDataRepository;
 
     [Inject]
-    public GameManager(IGameDataRepository<PlayerData, PlayerData.PlayerDataFields> repository, ISaver saver)
+    public GameManager(IGameDataRepository<PlayerData, PlayerData.PlayerDataFields> repository, ISetter<PlayerData.PlayerDataFields, T> setter)
     {
-        Saver = saver;
+        Setter = setter;
         GameDataRepository = repository;
     }
 
     public abstract T GetData();
 
-    public virtual void UpdateData(T value)
-    {
-        Saver.Save(value);
-    }
+    public abstract void UpdateData(T value);
 }

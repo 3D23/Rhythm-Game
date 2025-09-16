@@ -1,7 +1,9 @@
+using System.Threading.Tasks;
+
 public interface IGameDataRepository<T, T1>
 {
-    void Save(T1 key, object value);
-    void Load();
+    Task Save();
+    Task Load();
     T Get();
 
     void Set(T1 key, object value);

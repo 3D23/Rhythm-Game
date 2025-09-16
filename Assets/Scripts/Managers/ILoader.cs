@@ -1,4 +1,6 @@
+using System.Threading.Tasks;
+
 public interface ILoader
 {
-    void Load();
+    Task Load();
 }

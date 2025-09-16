@@ -1,4 +1,6 @@
+using System.Threading.Tasks;
+
 public interface ISaver
 {
-    void Save(object value);
+    Task Save();
 }

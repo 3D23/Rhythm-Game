@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+
 public class PlayerDataLoader : ILoader
 {
     private readonly IGameDataRepository<PlayerData, PlayerData.PlayerDataFields> _dataRepository;
@@ -7,8 +9,23 @@ public class PlayerDataLoader : ILoader
         _dataRepository = repository;
     }
 
-    public void Load()
+    public async Task Load()
     {
-        _dataRepository.Load();
+        await _dataRepository.Load();
+    }
+}
+
+public class PlayerDataSaver : ISaver
+{
+    private readonly IGameDataRepository<PlayerData, PlayerData.PlayerDataFields> _dataRepository;
+
+    public PlayerDataSaver(IGameDataRepository<PlayerData, PlayerData.PlayerDataFields> repository)
+    {
+        _dataRepository = repository;
+    }
+
+    public async Task Save()
+    {
+        await _dataRepository.Save();
     }
 }
