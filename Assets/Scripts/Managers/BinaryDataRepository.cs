@@ -31,6 +31,7 @@ public class BinaryDataRepository : IGameDataRepository<PlayerData, PlayerData.P
             Debug.LogError($"Ошибка дессериализации даных: {ex.Message}");
             _data = new PlayerData();
         }
+        Debug.Log($"Данные загружены из {file}");
         return Task.CompletedTask;
     }
 

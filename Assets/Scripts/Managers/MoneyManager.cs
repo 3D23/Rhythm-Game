@@ -1,4 +1,4 @@
-public class MoneyManager : GameManager<int>
+public class MoneyManager : GameDataManager<int>
 {
     public MoneyManager(IGameDataRepository<PlayerData, PlayerData.PlayerDataFields> gameDataRepository, MoneySetter moneySetter) 
         : base(gameDataRepository, moneySetter) { }
@@ -8,6 +8,6 @@ public class MoneyManager : GameManager<int>
 
     public override void UpdateData(int value)
     {
-        GameDataRepository.Set(PlayerData.PlayerDataFields.Money, value);
+        Setter.Set(value);
     }
 }

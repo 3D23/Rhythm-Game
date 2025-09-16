@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-public interface ISaver
+public interface IGameDataSaver
 {
     Task Save();
 }

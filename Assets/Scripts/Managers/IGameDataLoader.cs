@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-public interface ILoader
+public interface IGameDataLoader
 {
     Task Load();
 }

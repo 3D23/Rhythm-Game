@@ -1,8 +1,14 @@
 using VContainer;
 using VContainer.Unity;
 
-public class GameLifetimeScope : LifetimeScope
+public class GlobalLifetimeScope : LifetimeScope
 {
+    protected override void Awake()
+    {
+        base.Awake();
+        DontDestroyOnLoad(gameObject);
+    }
+
     protected override void Configure(IContainerBuilder builder)
     {
         //Entry Points Register
@@ -12,18 +18,18 @@ public class GameLifetimeScope : LifetimeScope
         });
 
         builder.Register<MoneySetter>(Lifetime.Singleton)
-            .As<ISetter<PlayerData.PlayerDataFields, int>>()
+            .As<IGameDataSetter<int>>()
             .AsSelf();
         builder.Register<PlayerDataLoader>(Lifetime.Singleton)
-            .As<ILoader>()
+            .As<IGameDataLoader>()
             .AsSelf();
         builder.Register<PlayerDataSaver>(Lifetime.Singleton)
-            .As<ISaver>()
+            .As<IGameDataSaver>()
             .AsSelf();
         builder.Register<BinaryDataRepository>(Lifetime.Singleton)
             .As<IGameDataRepository<PlayerData, PlayerData.PlayerDataFields>>();
         builder.Register<MoneyManager>(Lifetime.Singleton)
-            .As<GameManager<int>>()
+            .As<GameDataManager<int>>()
             .AsSelf();
     }
 }

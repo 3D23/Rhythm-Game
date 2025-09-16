@@ -64,7 +64,7 @@
     <Compile Include="Assets\Scripts\Managers\Money.cs" />
     <Compile Include="Assets\Scripts\PlayerData.cs" />
     <Compile Include="Assets\Scripts\GameBootstrapper.cs" />
-    <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\GameDataManager.cs" />
     <Compile Include="Assets\Scripts\SpeedZoneConfig.cs" />
     <Compile Include="Assets\Scripts\Managers\MoneyManager.cs" />
     <Compile Include="Assets\Scripts\PenaltyZone.cs" />
@@ -74,15 +74,19 @@
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\ZoneLine.cs" />
     <Compile Include="Assets\Scripts\SpeedModeController.cs" />
-    <Compile Include="Assets\Scripts\Managers\ILoader.cs" />
+    <Compile Include="Assets\Scripts\Managers\IGameDataSetter.cs" />
     <Compile Include="Assets\Scripts\SpeedModeAccelerationConfig.cs" />
+    <Compile Include="Assets\Scripts\Managers\IGameDataLoader.cs" />
     <Compile Include="Assets\Scripts\Managers\IRepository.cs" />
-    <Compile Include="Assets\Scripts\Managers\ISaver.cs" />
     <Compile Include="Assets\Scripts\RhythmMovement.cs" />
-    <Compile Include="Assets\Scripts\GameLifetimeScope.cs" />
+    <Compile Include="Assets\Scripts\PlayerDataSaver.cs" />
     <Compile Include="Assets\Scripts\Managers\MoneySetter.cs" />
     <Compile Include="Assets\Scripts\ZoneController.cs" />
+    <Compile Include="Assets\Scripts\Managers\IGameDataSaver.cs" />
     <Compile Include="Assets\Scripts\UI\GameUI.cs" />
+    <Compile Include="Assets\Scripts\MenuLifetimeScope.cs" />
+    <Compile Include="Assets\Scripts\UI\MenuUI.cs" />
+    <Compile Include="Assets\Scripts\GlobalLifetimeScope.cs" />
     <Compile Include="Assets\Scripts\PlayerDataLoader.cs" />
     <Compile Include="Assets\Scripts\RhythmController.cs" />
     <Compile Include="Assets\Scripts\Managers\IGameDataRepository.cs" />
@@ -90,7 +94,10 @@
   <ItemGroup>
     <None Include="Assets\UI\GameUI.uxml" />
     <None Include="Assets\UI\EndGame.uxml" />
+    <None Include="Assets\UI\Menu.uss" />
     <None Include="Assets\UI\PlayerEnergy.uxml" />
+    <None Include="Assets\UI\MainMenu.uxml" />
+    <None Include="Assets\UI\ControlWindow.uxml" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

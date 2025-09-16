@@ -1,0 +1,54 @@
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
+using VContainer;
+
+public class MenuUI : MonoBehaviour
+{
+    [SerializeField] UIDocument document;
+
+    private IGameDataSaver gameDataSaver;
+    private Button playButton;
+    private Button controlButton;
+    private Button quitGameButton;
+
+    [Inject]
+    public void Initialize(IGameDataSaver gameDataSaver)
+    {
+        this.gameDataSaver = gameDataSaver;
+    }
+
+    private void Start()
+    {
+        playButton = document.rootVisualElement.Q<Button>("PlayButton");
+        controlButton = document.rootVisualElement.Q<Button>("ControlButton");
+        quitGameButton = document.rootVisualElement.Q<Button>("QuitButton");
+
+        playButton.clicked += PlayGame;
+        controlButton.clicked += ShowControlWindow;
+        quitGameButton.clicked += QuitGame;
+    }
+
+    private void OnDestroy()
+    {
+        playButton.clicked -= PlayGame;
+        controlButton.clicked -= ShowControlWindow;
+        quitGameButton.clicked -= QuitGame;
+    }
+
+    private async void PlayGame()
+    {
+        await SceneManager.LoadSceneAsync("Game");
+    }
+
+    private void ShowControlWindow()
+    {
+        Debug.Log("Не реализовано");
+    }
+
+    private async void QuitGame()
+    {
+        await gameDataSaver.Save();
+        Application.Quit();
+    }
+}

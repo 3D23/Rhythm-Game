@@ -1,0 +1,27 @@
+.ControlButton {
+    width: 100%;
+    height: auto;
+    -unity-font-style: bold;
+    font-size: 48px;
+    color: rgb(154, 154, 154);
+    background-color: rgba(0, 0, 0, 0.55);
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+    margin-bottom: 25px;
+}
+
+.ControlButton:hover {
+    scale: 1.02 1.02;
+    transition-property: scale;
+    transition-duration: 200ms;
+    transition-timing-function: linear;
+}
+
+.ControlButton:active {
+    scale: 1.08 1.08;
+    transition-property: scale;
+    transition-duration: 100ms;
+    transition-timing-function: linear;
+}
