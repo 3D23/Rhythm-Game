@@ -63,6 +63,8 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\PlayerData.cs" />
     <Compile Include="Assets\Scripts\GameBootstrapper.cs" />
+    <Compile Include="Assets\Scripts\Views\GameView.cs" />
+    <Compile Include="Assets\Scripts\Views\IView.cs" />
     <Compile Include="Assets\Scripts\Managers\GameDataManager.cs" />
     <Compile Include="Assets\Scripts\SpeedZoneConfig.cs" />
     <Compile Include="Assets\Scripts\Managers\MoneyManager.cs" />
@@ -77,15 +79,14 @@
     <Compile Include="Assets\Scripts\SpeedModeAccelerationConfig.cs" />
     <Compile Include="Assets\Scripts\Managers\IGameDataLoader.cs" />
     <Compile Include="Assets\Scripts\Managers\IRepository.cs" />
-    <Compile Include="Assets\Scripts\UI\GameView.cs" />
     <Compile Include="Assets\Scripts\RhythmMovement.cs" />
     <Compile Include="Assets\Scripts\PlayerDataSaver.cs" />
+    <Compile Include="Assets\Scripts\Views\MenuView.cs" />
     <Compile Include="Assets\Scripts\GameLifetimeScope.cs" />
     <Compile Include="Assets\Scripts\Managers\MoneySetter.cs" />
     <Compile Include="Assets\Scripts\ZoneController.cs" />
     <Compile Include="Assets\Scripts\Managers\IGameDataSaver.cs" />
     <Compile Include="Assets\Scripts\MenuLifetimeScope.cs" />
-    <Compile Include="Assets\Scripts\UI\MenuView.cs" />
     <Compile Include="Assets\Scripts\GlobalLifetimeScope.cs" />
     <Compile Include="Assets\Scripts\PlayerDataLoader.cs" />
     <Compile Include="Assets\Scripts\RhythmController.cs" />
@@ -1343,6 +1344,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="UniRx.csproj">
+      <Project>{47065AD2-07B2-601B-B2C7-88BA3718E7EB}</Project>
+      <Name>UniRx</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

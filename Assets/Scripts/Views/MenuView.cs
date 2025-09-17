@@ -20,20 +20,12 @@ public class MenuView : MonoBehaviour, IView
 
     private void Start()
     {
-        playButton = document.rootVisualElement.Q<Button>("PlayButton");
-        controlButton = document.rootVisualElement.Q<Button>("ControlButton");
-        quitGameButton = document.rootVisualElement.Q<Button>("QuitButton");
-
-        playButton.clicked += PlayGame;
-        controlButton.clicked += ShowControlWindow;
-        quitGameButton.clicked += QuitGame;
+        Init();
     }
 
     private void OnDestroy()
     {
-        playButton.clicked -= PlayGame;
-        controlButton.clicked -= ShowControlWindow;
-        quitGameButton.clicked -= QuitGame;
+        Dispose();
     }
 
     private async void PlayGame()
@@ -51,6 +43,22 @@ public class MenuView : MonoBehaviour, IView
         await gameDataSaver.Save();
         Application.Quit();
     }
-}
 
-public interface IView { }
+    public void Init()
+    {
+        playButton = document.rootVisualElement.Q<Button>("PlayButton");
+        controlButton = document.rootVisualElement.Q<Button>("ControlButton");
+        quitGameButton = document.rootVisualElement.Q<Button>("QuitButton");
+
+        playButton.clicked += PlayGame;
+        controlButton.clicked += ShowControlWindow;
+        quitGameButton.clicked += QuitGame;
+    }
+
+    public void Dispose()
+    {
+        playButton.clicked -= PlayGame;
+        controlButton.clicked -= ShowControlWindow;
+        quitGameButton.clicked -= QuitGame;
+    }
+}

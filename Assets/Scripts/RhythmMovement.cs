@@ -38,7 +38,6 @@ public class RhythmMovement : MonoBehaviour
     private PlayerInputHandler inputHandler;
 
     private (byte Negative, byte Positive) moveButtonsClickedStatus = (0, 0);
-    private (byte Negative, byte Positive) accelerationButtonsClickedStatus = (0, 0);
 
     private Camera mainCamera;
     private Vector2 screenBounds;
@@ -183,28 +182,20 @@ public class RhythmMovement : MonoBehaviour
     private void NegativeAccelerationActionHandler(bool isStarted)
     {
         if (isStarted)
-        {
-            accelerationButtonsClickedStatus.Negative = 1;
             isSlowdown = true;
-        }
         else
-        {
-            accelerationButtonsClickedStatus.Negative = 0;
             isSlowdown = false;
-        }
     }
 
     private void PositiveAccelerationActionHandler(bool isStarted)
     {
         if (isStarted)
         {
-            accelerationButtonsClickedStatus.Positive = 1;
             if (energy >= EnergyThreshold)
                 isSprinted = true;
         }
         else
         {
-            accelerationButtonsClickedStatus.Negative = 0;
             isSprinted = false;
         }
     }

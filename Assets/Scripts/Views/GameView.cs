@@ -22,35 +22,15 @@ public class GameView : MonoBehaviour, IView
     private readonly StyleColor baseColor = new(new Color(0.29f, 0.29f, 0.29f));
     private readonly StyleColor baseColor2 = new(new Color(0.345f, 0.03f, 0f));
 
+    #region Unity
     private void Start()
     {
-        if (document == null)
-            return;
-        energyEl = document.rootVisualElement.Q<VisualElement>("PlayerEnergy").Q<VisualElement>("energyLevel");
-        speed = document.rootVisualElement.Q<Label>("Speed");
-        speedEl = document.rootVisualElement.Q<VisualElement>("PlayerSpeed").Q<VisualElement>("energyLevel");
-        endGame = document.rootVisualElement.Q<TemplateContainer>("EndGame");
-        restartButton = endGame.Q<Button>("RestartButton");
-        toMenuButton = endGame.Q<Button>("ToMenuButton");
-        quitGameButton = endGame.Q<Button>("QuitGameButton");
-        if (endGame != null)
-            endGame.style.visibility = Visibility.Hidden;
-        restartButton.clicked += RestartButton;
-        toMenuButton.clicked += MoveToMenu;
-        quitGameButton.clicked += QuitGame;
-        zoneController.OnFinishGame += ShowEndGameWindow;
-        if (inputHandler != null)
-            inputHandler.OnCloseButtonClicked += ShowEndGameWindow;
+        Init();
     }
 
     private void OnDestroy()
     {
-        restartButton.clicked -= RestartButton;
-        zoneController.OnFinishGame -= ShowEndGameWindow;
-        toMenuButton.clicked -= MoveToMenu;
-        quitGameButton.clicked -= QuitGame;
-        if (inputHandler != null)
-            inputHandler.OnCloseButtonClicked -= ShowEndGameWindow;
+        Dispose();
     }
 
     private void Update()
@@ -79,6 +59,7 @@ public class GameView : MonoBehaviour, IView
                 break;
         }
     }
+    #endregion
 
     private void ShowEndGameWindow()
     {
@@ -86,10 +67,8 @@ public class GameView : MonoBehaviour, IView
             endGame.style.visibility = Visibility.Visible;
     }
 
-    private void RestartButton()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
+    private async void RestartButton() =>
+        await SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
 
     private async void QuitGame()
     {
@@ -97,8 +76,37 @@ public class GameView : MonoBehaviour, IView
         Application.Quit();
     }
 
-    private async void MoveToMenu()
-    {
+    private async void MoveToMenu() =>
         await SceneManager.LoadSceneAsync("Menu");
+
+    public void Init()
+    {
+        if (document == null)
+            return;
+        energyEl = document.rootVisualElement.Q<VisualElement>("PlayerEnergy").Q<VisualElement>("energyLevel");
+        speed = document.rootVisualElement.Q<Label>("Speed");
+        speedEl = document.rootVisualElement.Q<VisualElement>("PlayerSpeed").Q<VisualElement>("energyLevel");
+        endGame = document.rootVisualElement.Q<TemplateContainer>("EndGame");
+        restartButton = endGame.Q<Button>("RestartButton");
+        toMenuButton = endGame.Q<Button>("ToMenuButton");
+        quitGameButton = endGame.Q<Button>("QuitGameButton");
+        if (endGame != null)
+            endGame.style.visibility = Visibility.Hidden;
+        restartButton.clicked += RestartButton;
+        toMenuButton.clicked += MoveToMenu;
+        quitGameButton.clicked += QuitGame;
+        zoneController.OnFinishGame += ShowEndGameWindow;
+        if (inputHandler != null)
+            inputHandler.OnCloseButtonClicked += ShowEndGameWindow;
+    }
+
+    public void Dispose()
+    {
+        restartButton.clicked -= RestartButton;
+        zoneController.OnFinishGame -= ShowEndGameWindow;
+        toMenuButton.clicked -= MoveToMenu;
+        quitGameButton.clicked -= QuitGame;
+        if (inputHandler != null)
+            inputHandler.OnCloseButtonClicked -= ShowEndGameWindow;
     }
 }
