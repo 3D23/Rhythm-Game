@@ -1,6 +1,7 @@
+using System;
 using System.Threading.Tasks;
 
-public interface IGameDataSaver
+public interface IGameDataSaver : IDisposable
 {
     Task Save();
 }

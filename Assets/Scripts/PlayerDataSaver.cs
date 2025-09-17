@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -11,10 +12,19 @@ public class PlayerDataSaver : IGameDataSaver
         Application.quitting += OnQuitGame;
     }
 
-    private async void OnQuitGame() => await Save();
+    private async void OnQuitGame()
+    {
+        await Save();
+    }
 
     public async Task Save()
     {
         await _dataRepository.Save();
+    }
+
+    public void Dispose()
+    {
+        Application.quitting -= OnQuitGame;
+        GC.SuppressFinalize(this);
     }
 }
