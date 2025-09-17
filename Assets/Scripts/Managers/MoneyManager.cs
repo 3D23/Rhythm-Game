@@ -1,5 +1,7 @@
 public class MoneyManager : GameDataManager<int>
 {
+    public readonly int Reward = 10;
+
     public MoneyManager(IGameDataRepository<PlayerData, PlayerData.PlayerDataFields> gameDataRepository, MoneySetter moneySetter) 
         : base(gameDataRepository, moneySetter) { }
 

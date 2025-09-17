@@ -1,5 +1,6 @@
 using System;
 using UniRx;
+using UnityEngine;
 
 public abstract class GameDataManager<T> : IDisposable
 {
@@ -15,17 +16,17 @@ public abstract class GameDataManager<T> : IDisposable
         }
     }
     
-    private readonly ReactiveProperty<T> data;
+    private readonly ReactiveProperty<T> data = new();
 
     protected readonly IGameDataSetter<T> Setter;
     protected readonly IGameDataRepository<PlayerData, PlayerData.PlayerDataFields> GameDataRepository;
 
     public GameDataManager(IGameDataRepository<PlayerData, PlayerData.PlayerDataFields> repository, IGameDataSetter<T> setter)
     {
-        Data = new();
         Setter = setter;
         GameDataRepository = repository;
         Data.Value = GetData();
+        Debug.Log(Data.Value);
     }
 
     protected abstract T GetData();

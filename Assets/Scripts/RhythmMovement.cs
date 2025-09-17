@@ -114,7 +114,6 @@ public class RhythmMovement : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(speed);
         if (isSlowdown)
             SetAcceleration(new Vector2(0.3f, 1));
 

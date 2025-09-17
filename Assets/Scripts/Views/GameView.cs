@@ -61,6 +61,12 @@ public class GameView : MonoBehaviour, IView
     }
     #endregion
 
+    private void ShowEndGameWindow(RaceStatus raceStatus)
+    {
+        if (endGame != null)
+            endGame.style.visibility = Visibility.Visible;
+    }
+
     private void ShowEndGameWindow()
     {
         if (endGame != null)
