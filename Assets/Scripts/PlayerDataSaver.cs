@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using UnityEngine;
 
 public class PlayerDataSaver : IGameDataSaver
 {
@@ -7,7 +8,10 @@ public class PlayerDataSaver : IGameDataSaver
     public PlayerDataSaver(IGameDataRepository<PlayerData, PlayerData.PlayerDataFields> repository)
     {
         _dataRepository = repository;
+        Application.quitting += OnQuitGame;
     }
+
+    private async void OnQuitGame() => await Save();
 
     public async Task Save()
     {

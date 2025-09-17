@@ -1,0 +1,4 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/Menu.uss?fileID=7433441132597879392&amp;guid=77793b79c1a1ffa489113e79d1e58946&amp;type=3#Menu" />
+    <ui:VisualElement name="ShopContainer" style="flex-grow: 1; background-color: rgb(40, 40, 40);" />
+</ui:UXML>

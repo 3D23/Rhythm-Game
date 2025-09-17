@@ -97,7 +97,8 @@
     <None Include="Assets\UI\EndGame.uxml" />
     <None Include="Assets\UI\Menu.uss" />
     <None Include="Assets\UI\PlayerEnergy.uxml" />
-    <None Include="Assets\EndGame.uss" />
+    <None Include="Assets\UI\EndGame.uss" />
+    <None Include="Assets\UI\Shop.uxml" />
     <None Include="Assets\UI\MainMenu.uxml" />
     <None Include="Assets\UI\ControlWindow.uxml" />
   </ItemGroup>

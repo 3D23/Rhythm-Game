@@ -8,14 +8,16 @@ public class MenuView : MonoBehaviour, IView
     [SerializeField] UIDocument document;
 
     private IGameDataSaver gameDataSaver;
+    private MoneyManager moneyManager;
     private Button playButton;
     private Button controlButton;
     private Button quitGameButton;
 
     [Inject]
-    public void Initialize(IGameDataSaver gameDataSaver)
+    public void Initialize(IGameDataSaver gameDataSaver, MoneyManager moneyManager)
     {
         this.gameDataSaver = gameDataSaver;
+        this.moneyManager = moneyManager;
     }
 
     private void Start()
