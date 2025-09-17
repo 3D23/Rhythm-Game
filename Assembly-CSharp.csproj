@@ -61,7 +61,6 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.0.51f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Managers\Money.cs" />
     <Compile Include="Assets\Scripts\PlayerData.cs" />
     <Compile Include="Assets\Scripts\GameBootstrapper.cs" />
     <Compile Include="Assets\Scripts\Managers\GameDataManager.cs" />
@@ -78,14 +77,15 @@
     <Compile Include="Assets\Scripts\SpeedModeAccelerationConfig.cs" />
     <Compile Include="Assets\Scripts\Managers\IGameDataLoader.cs" />
     <Compile Include="Assets\Scripts\Managers\IRepository.cs" />
+    <Compile Include="Assets\Scripts\UI\GameView.cs" />
     <Compile Include="Assets\Scripts\RhythmMovement.cs" />
     <Compile Include="Assets\Scripts\PlayerDataSaver.cs" />
+    <Compile Include="Assets\Scripts\GameLifetimeScope.cs" />
     <Compile Include="Assets\Scripts\Managers\MoneySetter.cs" />
     <Compile Include="Assets\Scripts\ZoneController.cs" />
     <Compile Include="Assets\Scripts\Managers\IGameDataSaver.cs" />
-    <Compile Include="Assets\Scripts\UI\GameUI.cs" />
     <Compile Include="Assets\Scripts\MenuLifetimeScope.cs" />
-    <Compile Include="Assets\Scripts\UI\MenuUI.cs" />
+    <Compile Include="Assets\Scripts\UI\MenuView.cs" />
     <Compile Include="Assets\Scripts\GlobalLifetimeScope.cs" />
     <Compile Include="Assets\Scripts\PlayerDataLoader.cs" />
     <Compile Include="Assets\Scripts\RhythmController.cs" />
@@ -96,6 +96,7 @@
     <None Include="Assets\UI\EndGame.uxml" />
     <None Include="Assets\UI\Menu.uss" />
     <None Include="Assets\UI\PlayerEnergy.uxml" />
+    <None Include="Assets\EndGame.uss" />
     <None Include="Assets\UI\MainMenu.uxml" />
     <None Include="Assets\UI\ControlWindow.uxml" />
   </ItemGroup>

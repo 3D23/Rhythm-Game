@@ -1,0 +1,9 @@
+.EndGameButton {
+    background-color: rgb(111, 108, 108);
+    font-size: 20px;
+    -unity-font-style: bold;
+    color: rgb(255, 255, 255);
+    width: 40%;
+    height: 15%;
+    margin-bottom: 20px;
+}

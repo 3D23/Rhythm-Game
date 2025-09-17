@@ -18,8 +18,16 @@ public class ZoneLine : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.TryGetComponent<RhythmMovement>(out _))
+        if (!collision.TryGetComponent(out RhythmMovement rhythmComponent))
             return;
+        if (rhythmComponent.GetComponent<Enemy>())
+        {
+
+        }
+        else if (rhythmComponent.GetComponent<PlayerInputHandler>())
+        {
+
+        }
         OnSwitchZone?.Invoke(zone);
     }
 }

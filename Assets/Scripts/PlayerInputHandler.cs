@@ -10,6 +10,7 @@ public class PlayerInputHandler : MonoBehaviour
     private InputAction accelerationAction;
     private InputAction moveAction;
     private InputAction modeAction;
+    private InputAction closeAction;
 
     public Action OnPositiveRhythmSpeedAction;
     public Action OnNegativeRhythmSpeedAction;
@@ -19,6 +20,7 @@ public class PlayerInputHandler : MonoBehaviour
     public Action<bool> OnNegativeMoveAction;
     public Action OnPositiveSpeedModeAction;
     public Action OnNegativeSpeedModeAction;
+    public Action OnCloseButtonClicked;
 
     #region Unity Lifecycle
     private void Awake()
@@ -28,6 +30,7 @@ public class PlayerInputHandler : MonoBehaviour
         accelerationAction = p.FindAction("Acceleration");
         moveAction = p.FindAction("Move");
         modeAction = p.FindAction("Mode");
+        closeAction = p.FindAction("Close");
     }
 
     private void OnEnable()
@@ -36,6 +39,7 @@ public class PlayerInputHandler : MonoBehaviour
         accelerationAction.Enable();
         modeAction.Enable();
         moveAction.Enable();
+        closeAction.Enable();
 
         rhythmSpeedAction.started += OnSpeedActionStart;
         accelerationAction.started += OnAccelerationActionStart;
@@ -43,6 +47,7 @@ public class PlayerInputHandler : MonoBehaviour
         moveAction.performed += OnMoveAction;
         moveAction.canceled += OnMoveAction;
         modeAction.canceled += OnModeActionCancel;
+        closeAction.canceled += OnCloseActionCancel;
     }
 
     private void OnDisable()
@@ -53,11 +58,13 @@ public class PlayerInputHandler : MonoBehaviour
         moveAction.performed -= OnMoveAction;
         moveAction.canceled -= OnMoveAction;
         modeAction.canceled -= OnModeActionCancel;
+        closeAction.canceled -= OnCloseActionCancel;
 
         rhythmSpeedAction.Disable();
         accelerationAction.Disable();
         modeAction.Disable();
         moveAction.Disable();
+        closeAction.Disable();
     }
     #endregion
 
@@ -113,5 +120,10 @@ public class PlayerInputHandler : MonoBehaviour
         InputBinding binding = context.action.bindings[context.action.GetBindingIndexForControl(context.control)];
         if (binding.name.ToLower() == "positive") OnPositiveAccelerationAction?.Invoke(true);
         else if (binding.name.ToLower() == "negative") OnNegativeAccelerationAction?.Invoke(true);
+    }
+
+    private void OnCloseActionCancel(InputAction.CallbackContext context)
+    {
+        OnCloseButtonClicked?.Invoke();
     }
 }

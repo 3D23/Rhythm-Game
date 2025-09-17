@@ -1,7 +1,10 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/EndGame.uss?fileID=7433441132597879392&amp;guid=7a18d14d689946749ac66188fa6006ef&amp;type=3#EndGame" />
     <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0.6); justify-content: center; align-content: center; align-items: center;">
-        <ui:VisualElement style="width: 30%; height: 20%; background-color: rgb(243, 243, 243); border-top-left-radius: 30px; border-top-right-radius: 30px; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; justify-content: center; align-items: center;">
-            <ui:Button text="Перезапуск" name="RestartButton" style="width: 40%; height: 30%; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; background-color: rgb(111, 108, 108); color: rgb(255, 255, 255); -unity-font-style: bold; -unity-font-definition: url(&quot;project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=2230732570650464555&amp;guid=da27f7c7b72a63445836d42f1c034141&amp;type=3#NotInter-Regular&quot;); font-size: 20px;" />
+        <ui:VisualElement style="background-color: rgba(243, 243, 243, 0.19); justify-content: center; align-items: center; width: 30%; height: 50%;">
+            <ui:Button text="Еще раз" name="RestartButton" class="EndGameButton" style="border-top-left-radius: 0; border-top-right-radius: 0; border-bottom-left-radius: 0; border-bottom-right-radius: 0;" />
+            <ui:Button text="Назад в меню" name="ToMenuButton" class="EndGameButton" />
+            <ui:Button text="Выйти из игры" name="QuitGameButton" class="EndGameButton" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

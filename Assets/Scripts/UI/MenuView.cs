@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 using VContainer;
 
-public class MenuUI : MonoBehaviour
+public class MenuView : MonoBehaviour, IView
 {
     [SerializeField] UIDocument document;
 
@@ -52,3 +52,5 @@ public class MenuUI : MonoBehaviour
         Application.Quit();
     }
 }
+
+public interface IView { }

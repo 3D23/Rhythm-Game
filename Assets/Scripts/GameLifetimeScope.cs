@@ -1,10 +1,10 @@
 using VContainer;
 using VContainer.Unity;
 
-public class MenuLifetimeScope : LifetimeScope
+public class GameLifetimeScope : LifetimeScope
 {
     protected override void Configure(IContainerBuilder builder)
     {
-        builder.RegisterComponentInHierarchy<MenuView>();
+        builder.RegisterComponentInHierarchy<GameView>();
     }
 }
