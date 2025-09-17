@@ -78,7 +78,6 @@
     <Compile Include="Assets\Scripts\Managers\IGameDataSetter.cs" />
     <Compile Include="Assets\Scripts\SpeedModeAccelerationConfig.cs" />
     <Compile Include="Assets\Scripts\Managers\IGameDataLoader.cs" />
-    <Compile Include="Assets\Scripts\Managers\IRepository.cs" />
     <Compile Include="Assets\Scripts\RhythmMovement.cs" />
     <Compile Include="Assets\Scripts\PlayerDataSaver.cs" />
     <Compile Include="Assets\Scripts\Views\MenuView.cs" />

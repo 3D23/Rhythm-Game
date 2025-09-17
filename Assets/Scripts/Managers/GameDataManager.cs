@@ -1,6 +1,5 @@
 using System;
 using UniRx;
-using UnityEngine;
 
 public abstract class GameDataManager<T> : IDisposable
 {
@@ -26,7 +25,6 @@ public abstract class GameDataManager<T> : IDisposable
         Setter = setter;
         GameDataRepository = repository;
         Data.Value = GetData();
-        Debug.Log(Data.Value);
     }
 
     protected abstract T GetData();
