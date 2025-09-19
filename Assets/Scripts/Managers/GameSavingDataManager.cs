@@ -1,7 +1,7 @@
 using System;
 using UniRx;
 
-public abstract class GameDataManager<T> : IDisposable
+public abstract class GameSavingDataManager<T> : IGameSavingDataManager, IDisposable
 {
     private bool _disposed = false;
 
@@ -17,10 +17,10 @@ public abstract class GameDataManager<T> : IDisposable
     
     private readonly ReactiveProperty<T> data = new();
 
-    protected readonly IGameDataSetter<T> Setter;
-    protected readonly IGameDataRepository<PlayerData, PlayerData.PlayerDataFields> GameDataRepository;
+    protected readonly IGameSavingDataSetter<T> Setter;
+    protected readonly IGameSavingDataRepository<PlayerData, PlayerData.PlayerDataFields> GameDataRepository;
 
-    public GameDataManager(IGameDataRepository<PlayerData, PlayerData.PlayerDataFields> repository, IGameDataSetter<T> setter)
+    public GameSavingDataManager(IGameSavingDataRepository<PlayerData, PlayerData.PlayerDataFields> repository, IGameSavingDataSetter<T> setter)
     {
         Setter = setter;
         GameDataRepository = repository;

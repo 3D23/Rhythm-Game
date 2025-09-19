@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 using VContainer;
 
-public class MenuView : MonoBehaviour, IView
+public class MenuView : MonoBehaviour, IMenuView
 {
     [SerializeField] UIDocument document;
 
@@ -20,29 +20,18 @@ public class MenuView : MonoBehaviour, IView
         this.moneyManager = moneyManager;
     }
 
-    private void Start()
+    public async void PlayGame()
     {
-        Init();
+        await SceneManager.LoadSceneAsync("Race");
     }
 
-    private void OnDestroy()
-    {
-        Dispose();
-    }
-
-    private async void PlayGame()
-    {
-        await SceneManager.LoadSceneAsync("Game");
-    }
-
-    private void ShowControlWindow()
+    public void ShowControlWindow()
     {
         Debug.Log("Не реализовано");
     }
 
-    private async void QuitGame()
+    public void QuitGame()
     {
-        await gameDataSaver.Save();
         Application.Quit();
     }
 

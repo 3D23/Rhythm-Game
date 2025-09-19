@@ -11,14 +11,14 @@ public class GlobalLifetimeScope : LifetimeScope
 
     protected override void Configure(IContainerBuilder builder)
     {
-        //Entry Points Register
+        // Register Global Entry Points
         builder.UseEntryPoints(builder =>
         {
             builder.Add<GameBootstrapper>();
         });
 
         builder.Register<MoneySetter>(Lifetime.Singleton)
-            .As<IGameDataSetter<int>>()
+            .As<IGameSavingDataSetter<int>>()
             .AsSelf();
         builder.Register<PlayerDataLoader>(Lifetime.Singleton)
             .As<IGameDataLoader>()
@@ -27,9 +27,10 @@ public class GlobalLifetimeScope : LifetimeScope
             .As<IGameDataSaver>()
             .AsSelf();
         builder.Register<BinaryDataRepository>(Lifetime.Singleton)
-            .As<IGameDataRepository<PlayerData, PlayerData.PlayerDataFields>>();
+            .As<IGameSavingDataRepository<PlayerData, PlayerData.PlayerDataFields>>();
         builder.Register<MoneyManager>(Lifetime.Singleton)
-            .As<GameDataManager<int>>()
+            .As<GameSavingDataManager<int>>()
+            .As<IGameSavingDataManager>()
             .AsSelf();
     }
 }

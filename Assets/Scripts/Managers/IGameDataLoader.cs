@@ -1,6 +1,6 @@
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 
 public interface IGameDataLoader
 {
-    Task Load();
+    UniTask Load();
 }

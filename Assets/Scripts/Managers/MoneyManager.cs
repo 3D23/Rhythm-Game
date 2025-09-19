@@ -1,8 +1,8 @@
-public class MoneyManager : GameDataManager<int>
+public class MoneyManager : GameSavingDataManager<int>
 {
     public readonly int Reward = 10;
 
-    public MoneyManager(IGameDataRepository<PlayerData, PlayerData.PlayerDataFields> gameDataRepository, MoneySetter moneySetter) 
+    public MoneyManager(IGameSavingDataRepository<PlayerData, PlayerData.PlayerDataFields> gameDataRepository, MoneySetter moneySetter) 
         : base(gameDataRepository, moneySetter) { }
 
     protected override int GetData() 

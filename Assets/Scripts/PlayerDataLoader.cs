@@ -1,15 +1,15 @@
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 
 public class PlayerDataLoader : IGameDataLoader
 {
-    private readonly IGameDataRepository<PlayerData, PlayerData.PlayerDataFields> _dataRepository;
+    private readonly IGameSavingDataRepository<PlayerData, PlayerData.PlayerDataFields> _dataRepository;
 
-    public PlayerDataLoader(IGameDataRepository<PlayerData, PlayerData.PlayerDataFields> repository)
+    public PlayerDataLoader(IGameSavingDataRepository<PlayerData, PlayerData.PlayerDataFields> repository)
     {
         _dataRepository = repository;
     }
 
-    public async Task Load()
+    public async UniTask Load()
     {
         await _dataRepository.Load();
     }

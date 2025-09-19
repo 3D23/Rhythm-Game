@@ -1,8 +1,8 @@
-public class MoneySetter : IGameDataSetter<int>
+public class MoneySetter : IGameSavingDataSetter<int>
 {
-    private readonly IGameDataRepository<PlayerData, PlayerData.PlayerDataFields> gameDataRepository;
+    private readonly IGameSavingDataRepository<PlayerData, PlayerData.PlayerDataFields> gameDataRepository;
 
-    public MoneySetter(IGameDataRepository<PlayerData, PlayerData.PlayerDataFields> repository)
+    public MoneySetter(IGameSavingDataRepository<PlayerData, PlayerData.PlayerDataFields> repository)
     {
         gameDataRepository = repository;
     }

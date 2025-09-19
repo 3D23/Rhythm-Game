@@ -1,23 +1,23 @@
 using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Threading.Tasks;
 using UnityEngine;
+using Cysharp.Threading.Tasks;
 
-public class BinaryDataRepository : IGameDataRepository<PlayerData, PlayerData.PlayerDataFields>
+public class BinaryDataRepository : IGameSavingDataRepository<PlayerData, PlayerData.PlayerDataFields>
 {
     private PlayerData _data;
     private const string BINARY_SAVE_FILE = "playerData.sav";
 
     public BinaryDataRepository() { }
 
-    public Task Load()
+    public UniTask Load()
     {
         string file = Path.Combine(Application.persistentDataPath, BINARY_SAVE_FILE);
         if (!File.Exists(file))
         {
             _data = new PlayerData();
-            return Task.CompletedTask;
+            return UniTask.CompletedTask;
         }
         BinaryFormatter binaryFormatter = new();
         byte[] dataBytes = File.ReadAllBytes(file);
@@ -32,10 +32,10 @@ public class BinaryDataRepository : IGameDataRepository<PlayerData, PlayerData.P
             _data = new PlayerData();
         }
         Debug.Log($"Данные загружены из {file}");
-        return Task.CompletedTask;
+        return UniTask.CompletedTask;
     }
 
-    public Task Save()
+    public UniTask Save()
     {
         string file = Path.Combine(Application.persistentDataPath, BINARY_SAVE_FILE);
         BinaryFormatter binaryFormatter = new();
@@ -44,7 +44,7 @@ public class BinaryDataRepository : IGameDataRepository<PlayerData, PlayerData.P
         byte[] dataBytes = ms.ToArray();
         File.WriteAllBytes(file, dataBytes);
         Debug.Log($"Данные сохранены в {file}");
-        return Task.CompletedTask;
+        return UniTask.CompletedTask;
     }
 
     public PlayerData Get() => _data;

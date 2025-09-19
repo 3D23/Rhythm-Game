@@ -151,8 +151,8 @@
     <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\Create.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\Concat.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\Disposables\ICancelable.cs" />
-    <Compile Include="Assets\Plugins\UniRx\Scripts\Observable.Awaiter.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\OperatorObserverBase.cs" />
+    <Compile Include="Assets\Plugins\UniRx\Scripts\Observable.Awaiter.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\ScenePlaybackDetector.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableFixedUpdateTrigger.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableTriggerTrigger.cs" />
@@ -183,8 +183,8 @@
     <Compile Include="Assets\Plugins\UniRx\Scripts\System\IObservable.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\ObserveExtensions.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\Never.cs" />
-    <Compile Include="Assets\Plugins\UniRx\Scripts\Subjects\ConnectableObservable.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\Last.cs" />
+    <Compile Include="Assets\Plugins\UniRx\Scripts\Subjects\ConnectableObservable.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableInitializePotentialDragTrigger.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\ContinueWith.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableDeselectTrigger.cs" />
@@ -203,8 +203,8 @@
     <Compile Include="Assets\Plugins\UniRx\Scripts\Notifiers\BooleanNotifier.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\Disposables\MultipleAssignmentDisposable.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\InternalUtil\ListObserver.cs" />
-    <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableEventTrigger.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\Observable.ErrorHandling.cs" />
+    <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableEventTrigger.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\Aggregate.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\Do.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\Disposables\DisposableExtensions.cs" />
@@ -254,8 +254,8 @@
     <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableAnimatorTrigger.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\RepeatSafe.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\InspectableReactiveProperty.cs" />
-    <Compile Include="Assets\Plugins\UniRx\Scripts\Observable.FromAsync.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\Operators\ObserveOn.cs" />
+    <Compile Include="Assets\Plugins\UniRx\Scripts\Observable.FromAsync.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\Operators\DelayFrame.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\InternalUtil\ThreadSafeQueueWorker.cs" />
     <Compile Include="Assets\Plugins\UniRx\Scripts\InternalUtil\UnityEqualityComparer.cs" />
