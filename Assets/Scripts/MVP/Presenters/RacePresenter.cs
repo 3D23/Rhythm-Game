@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
@@ -17,21 +18,14 @@ public class RacePresenter : ScenePresenter<RaceSceneData>
             .AddTo(Disposables);
     }
 
-    public void SetEnergy(float value) =>
-        Model.Data.Energy.Value = value;
-
-    public void SetMaxEnergy(float value) =>
-        Model.Data.MaxEnergy.Value = value;
-
-    public void SetSpeed(Vector2 value) =>
-        Model.Data.Speed.Value = value;
-
-    public void SetMaxSpeed(float value) =>
-        Model.Data.MaxSpeed.Value = value;
-
-    public void SetSpeedMode(SpeedMode mode) =>
-        Model.Data.SpeedMode.Value = mode;
-
-    public void SetEnergyThreshold(float value) =>
-        Model.Data.EnergyThreshold.Value = value;
+    public void FinishGame() {
+        try
+        {
+            (View as IRaceView).ShowEndGameWindow(Model.Data.RaceStatus.Value);
+        }
+        catch (InvalidCastException)
+        {
+            Debug.LogWarning("View is not implement IRaceView");
+        }
+    }
 }

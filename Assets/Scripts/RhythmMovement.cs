@@ -1,44 +1,17 @@
 using System;
 using UnityEngine;
+using VContainer;
 
 public class RhythmMovement : MonoBehaviour
 {
     public Action OnRhythmAccelerationChange;
-    public readonly float MaxEnergy = 100;
-    public readonly float EnergyThreshold = 20;
-    public float Energy
-    {
-        get => energy;
-        private set => energy = Math.Clamp(value, 0, MaxEnergy);
-    }
-
+    [Inject] private readonly ScenePresenter<RaceSceneData> presenter;
+    private IChangeDataStrategy<RaceSceneData> changeDataStrategy;
     private bool isSprinted = false;
     private bool isSlowdown = false;
-
-    public Vector2 Speed
-    {
-        get => speed;
-        private set => speed = new Vector2(Mathf.Clamp(value.x, 0, MaxSpeed), value.y);
-    }
-
-    public Vector2 Acceleration
-    {
-        get => acceleration;
-        private set => acceleration = new Vector2(Mathf.Clamp(value.x, -maxAcel, maxAcel), Mathf.Clamp(value.y, -maxAcel, maxAcel));
-    }
-
-    private Vector2 speed;
-    private Vector2 acceleration;
-    private float energy = 100;
-
-    public float MaxSpeed { get; private set; } = 1.1f;
-    private readonly float maxAcel = 20f;
     private readonly float friction = 0.98f;
-
     private PlayerInputHandler inputHandler;
-
     private (byte Negative, byte Positive) moveButtonsClickedStatus = (0, 0);
-
     private Camera mainCamera;
     private Vector2 screenBounds;
     private float objectWidth;
@@ -53,10 +26,15 @@ public class RhythmMovement : MonoBehaviour
         mainCamera = Camera.main;
         if (inputHandler != null) 
         {
+            changeDataStrategy = new PlayerChangeDataStartegy(presenter);
             inputHandler.OnPositiveMoveAction += PositiveMoveActionHandler;
             inputHandler.OnNegativeMoveAction += NegativeMoveActionHandler;
             inputHandler.OnPositiveAccelerationAction += PositiveAccelerationActionHandler;
             inputHandler.OnNegativeAccelerationAction += NegativeAccelerationActionHandler;
+        }
+        else
+        {
+            changeDataStrategy = new EnemyChangeDataStrategy();
         }
         CalculateBounds();
         if (rhythmController != null)
@@ -65,21 +43,46 @@ public class RhythmMovement : MonoBehaviour
 
     private void OnRhythmTickHandler(RhythmGradation gradation)
     {
-        if (MathF.Abs(acceleration.x) < 1)
+        if (MathF.Abs(changeDataStrategy.Data.Acceleration.Value.x) < 1)
         {
             if (gradation == RhythmGradation.GOOD)
-                Acceleration += new Vector2(1, 0);
+            {
+                changeDataStrategy.SetData(data =>
+                {
+                    data.Acceleration.Value += new Vector2(1, 0);
+                });
+            }
         }
         else
         {
             if (gradation == RhythmGradation.GOOD)
-                Acceleration *= new Vector2(1.5f, 1);
+            {
+                changeDataStrategy.SetData(data =>
+                {
+                    data.Acceleration.Value *= new Vector2(1.5f, 1);
+                });
+            }
             else if (gradation == RhythmGradation.OK)
-                Acceleration /= new Vector2(1.5f, 1);
+            {
+                changeDataStrategy.SetData(data =>
+                {
+                    data.Acceleration.Value /= new Vector2(1.5f, 1);
+                });
+            }
             else if (gradation == RhythmGradation.BAD)
-                Acceleration /= new Vector2(2, 1);
+            {
+                changeDataStrategy.SetData(data =>
+                {
+                    data.Acceleration.Value /= new Vector2(2, 1);
+                });
+            }
             else if (gradation == RhythmGradation.VERY_BAD)
-                Acceleration /= new Vector2(4, 1);
+            {
+                changeDataStrategy.SetData(data =>
+                {
+                    data.Acceleration.Value /= new Vector2(4, 1);
+                });
+            }
         }
         OnRhythmAccelerationChange?.Invoke();
     }
@@ -88,15 +91,28 @@ public class RhythmMovement : MonoBehaviour
     {
         if (coeffVector.x != 1)
         {
-            if (acceleration.x == 0)
-                Acceleration = new Vector2(0.2f, acceleration.y);
+            if (changeDataStrategy.Data.Acceleration.Value.x == 0)
+            {
+                changeDataStrategy.SetData(data =>
+                {
+                    data.Acceleration.Value += new Vector2(0.2f, 0);
+                });
+            }
         }
         if (coeffVector.y != 1)
         {
-            if (acceleration.y == 0)
-                Acceleration = new Vector2(acceleration.x, 0.2f);
+            if (changeDataStrategy.Data.Acceleration.Value.y == 0)
+            {
+                changeDataStrategy.SetData(data =>
+                {
+                    data.Acceleration.Value = new Vector2(data.Acceleration.Value.x, 0.2f);
+                });
+            }
         }
-        Acceleration *= coeffVector;
+        changeDataStrategy.SetData(data =>
+        {
+            data.Acceleration.Value *= coeffVector;
+        });
     }
 
     private void OnDestroy()
@@ -117,30 +133,39 @@ public class RhythmMovement : MonoBehaviour
         if (isSlowdown)
             SetAcceleration(new Vector2(0.3f, 1));
 
-        if (energy < 0 + Mathf.Epsilon)
+        if (changeDataStrategy.Data.Energy.Value < 0 + Mathf.Epsilon)
             isSprinted = false;
 
         if (!isSprinted)
         {
-            Energy += Time.deltaTime * 4;
+            changeDataStrategy.SetData(data =>
+            {
+                data.Energy.Value += Time.deltaTime * 4;
+            });
         }
 
         if (isSprinted)
         {
             SetAcceleration(new Vector2(1.05f, 1));
-            Energy -= Time.deltaTime * 40;
+            changeDataStrategy.SetData(data =>
+            {
+                data.Energy.Value -= Time.deltaTime * 40;
+            });
         }
 
         float ac_y;
         if (moveButtonsClickedStatus.Positive - moveButtonsClickedStatus.Negative == 0)
         {
-            ac_y = Mathf.MoveTowards(acceleration.y, 0f, Time.deltaTime);
+            ac_y = Mathf.MoveTowards(changeDataStrategy.Data.Acceleration.Value.y, 0f, Time.deltaTime);
         }
         else
         {
-            ac_y = acceleration.y + (moveButtonsClickedStatus.Positive - moveButtonsClickedStatus.Negative) * 2f * Time.deltaTime;
+            ac_y = changeDataStrategy.Data.Acceleration.Value.y + (moveButtonsClickedStatus.Positive - moveButtonsClickedStatus.Negative) * 2f * Time.deltaTime;
         }
-        Acceleration = new Vector2(acceleration.x, ac_y);
+        changeDataStrategy.SetData(data =>
+        {
+            data.Acceleration.Value = new Vector2(data.Acceleration.Value.x, ac_y);
+        });
         Move();
         Vector3 viewPos = transform.position;
         viewPos.x = Mathf.Clamp(viewPos.x, -screenBounds.x + objectWidth, screenBounds.x - objectWidth);
@@ -154,7 +179,10 @@ public class RhythmMovement : MonoBehaviour
 
     public void SetMaxSpeed(float value)
     {
-        MaxSpeed = value;
+        changeDataStrategy.SetData(data =>
+        {
+            data.MaxSpeed.Value = value;
+        });
     }
 
     private void CalculateBounds()
@@ -166,16 +194,25 @@ public class RhythmMovement : MonoBehaviour
 
     public void Stop()
     {
-        Acceleration = Vector2.zero;
-        Speed = Vector2.zero;
+        changeDataStrategy.SetData(data =>
+        {
+            data.Acceleration.Value = Vector2.zero;
+            data.Speed.Value = Vector2.zero;
+        });
     }
 
     private void Move()
     {
-        Speed += Time.deltaTime * acceleration;
-        Speed = new Vector2(Mathf.Clamp(speed.x, -MaxSpeed, MaxSpeed), Mathf.Clamp(speed.y, -MaxSpeed, MaxSpeed));
-        Speed *= friction;
-        transform.Translate(Time.deltaTime * speed);
+        changeDataStrategy.SetData(data =>
+        {
+            data.Speed.Value += Time.deltaTime * data.Acceleration.Value;
+            data.Speed.Value = new Vector2(
+                Mathf.Clamp(data.Speed.Value.x, -data.MaxSpeed.Value, data.MaxSpeed.Value),
+                Mathf.Clamp(data.Speed.Value.y, -data.MaxSpeed.Value, data.MaxSpeed.Value)
+            );
+            data.Speed.Value *= friction;
+        });
+        transform.Translate(Time.deltaTime * changeDataStrategy.Data.Speed.Value);
     }
 
     private void NegativeAccelerationActionHandler(bool isStarted)
@@ -190,7 +227,7 @@ public class RhythmMovement : MonoBehaviour
     {
         if (isStarted)
         {
-            if (energy >= EnergyThreshold)
+            if (changeDataStrategy.Data.Energy.Value >= changeDataStrategy.Data.EnergyThreshold.Value)
                 isSprinted = true;
         }
         else

@@ -10,7 +10,7 @@ public class RaceLifetimeScope : LifetimeScope
             builder.Add<RaceSceneBootstrapper>();
         });
 
-        // Register MVP objects
+        // Register MVP Components
         builder.Register<RacePresenter>(Lifetime.Singleton)
             .As<ScenePresenter<RaceSceneData>>()
             .AsSelf();
@@ -19,6 +19,14 @@ public class RaceLifetimeScope : LifetimeScope
             .AsSelf();
         builder.Register<RaceSceneModel>(Lifetime.Singleton)
             .As<ISceneModel<RaceSceneData>>()
+            .AsSelf();
+
+        // Register Another Components
+        builder.RegisterComponentInHierarchy<Metronome>()
+            .AsSelf();
+        builder.RegisterComponentInHierarchy<ZoneController>()
+            .AsSelf();
+        builder.RegisterComponentInHierarchy<RhythmMovement>()
             .AsSelf();
     }
 }

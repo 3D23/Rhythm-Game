@@ -18,7 +18,9 @@ public abstract class ScenePresenter<T> : IDisposable
         View.Init();
     }
 
-    public void Dispose()
+    public virtual void ModifyModel(Action<ISceneModel<T>> modifyAction) => modifyAction(Model);
+
+    public virtual void Dispose()
     {
         Disposables.Dispose();
         View.Dispose();

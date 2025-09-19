@@ -77,6 +77,7 @@
     <Compile Include="Assets\Scripts\SpeedModeController.cs" />
     <Compile Include="Assets\Scripts\MVP\Models\RaceSceneModel.cs" />
     <Compile Include="Assets\Scripts\SpeedModeAccelerationConfig.cs" />
+    <Compile Include="Assets\Scripts\EnemyChangeDataStrategy.cs" />
     <Compile Include="Assets\Scripts\Managers\IGameDataLoader.cs" />
     <Compile Include="Assets\Scripts\Managers\IGameSavingDataManager.cs" />
     <Compile Include="Assets\Scripts\MVP\Models\RaceSceneData.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Assets\Scripts\MVP\Views\IRaceView.cs" />
     <Compile Include="Assets\Scripts\MVP\Presenters\MenuPresenter.cs" />
     <Compile Include="Assets\Scripts\LifetimeScopes\RaceLifetimeScope.cs" />
+    <Compile Include="Assets\Scripts\RaceStatus.cs" />
     <Compile Include="Assets\Scripts\Bootstrappers\GameBootstrapper.cs" />
     <Compile Include="Assets\Scripts\Managers\IGameSavingDataSetter.cs" />
     <Compile Include="Assets\Scripts\RhythmMovement.cs" />
@@ -94,6 +96,7 @@
     <Compile Include="Assets\Scripts\MVP\Models\ISceneData.cs" />
     <Compile Include="Assets\Scripts\MVP\Presenters\ScenePresenter.cs" />
     <Compile Include="Assets\Scripts\Managers\GameSavingDataManager.cs" />
+    <Compile Include="Assets\Scripts\PlayerChangeDataStartegy.cs" />
     <Compile Include="Assets\Scripts\MVP\Views\MenuView.cs" />
     <Compile Include="Assets\Scripts\Managers\IGameSavingDataRepository.cs" />
     <Compile Include="Assets\Scripts\Managers\MoneySetter.cs" />
@@ -102,6 +105,7 @@
     <Compile Include="Assets\Scripts\MVP\Models\MenuSceneModel.cs" />
     <Compile Include="Assets\Scripts\MVP\Models\MenuSceneData.cs" />
     <Compile Include="Assets\Scripts\LifetimeScopes\MenuLifetimeScope.cs" />
+    <Compile Include="Assets\Scripts\IChangeDataStrategy.cs" />
     <Compile Include="Assets\Scripts\PlayerDataLoader.cs" />
     <Compile Include="Assets\Scripts\RhythmController.cs" />
   </ItemGroup>
